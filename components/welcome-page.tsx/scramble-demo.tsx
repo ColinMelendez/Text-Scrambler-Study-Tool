@@ -1,32 +1,32 @@
-import { useEffect, useRef } from 'react';
-import { useSettingsStorage } from '@/hooks/use-settings-storage';
-import { applyOverlayToSelection, clearOverlays } from '@/lib/utils/active-selection-scramble';
+import { useEffect, useRef } from 'react'
+import { useSettingsStorage } from '@/hooks/use-settings-storage'
+import { applyOverlayToSelection, clearOverlays } from '@/lib/utils/active-selection-scramble'
 
 export const ScrambleDemo = () => {
-  const textElementRef = useRef<HTMLParagraphElement | null>(null);
-  const { settings } = useSettingsStorage();
+  const textElementRef = useRef<HTMLParagraphElement | null>(null)
+  const { settings } = useSettingsStorage()
 
   useEffect(() => {
     if (textElementRef.current) {
-      const controller = new AbortController();
+      const controller = new AbortController()
 
       document.addEventListener('selectionchange', () => {
-        requestAnimationFrame(applyOverlayToSelection(settings));
+        requestAnimationFrame(applyOverlayToSelection(settings))
       }, {
         passive: true,
         signal: controller.signal,
-      });
+      })
 
       // apply the overlay immediately in case a selection was already active when the component mounted.
-      applyOverlayToSelection(settings)();
+      applyOverlayToSelection(settings)()
 
       // remove the event listener and clear any overlays when the component unmounts.
       return () => {
-        controller.abort();
-        clearOverlays();
+        controller.abort()
+        clearOverlays()
       }
     }
-  }, [settings]);
+  }, [settings])
 
   return (
     <div

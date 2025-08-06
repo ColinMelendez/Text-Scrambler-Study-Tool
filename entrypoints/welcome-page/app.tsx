@@ -1,10 +1,10 @@
-import { useEffect, useRef } from 'react';
-import { ModeToggle } from '@/components/popup/dark-mode-toggle';
-import { ScrambleSetting } from '@/components/popup/scramble-setting';
-import { ScrambleDemo } from '@/components/welcome-page.tsx/scramble-demo';
+import { useEffect, useRef } from 'react'
+import { ModeToggle } from '@/components/popup/dark-mode-toggle'
+import { ScrambleSetting } from '@/components/popup/scramble-setting'
+import { ScrambleDemo } from '@/components/welcome-page.tsx/scramble-demo'
 
 export const App = () => {
-  const toggleRef = useRef<HTMLDivElement>(null);
+  const toggleRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -14,15 +14,15 @@ export const App = () => {
           cancelable: true, // The event can be canceled (e.g., prevent default behavior)
           view: window, // The window object where the event occurred
           buttons: 2, // Represents the secondary (right) mouse button
-        });
+        })
 
-        toggleRef.current.dispatchEvent(contextMenuEvent);
-        console.log('contextMenuEvent dispatched');
+        toggleRef.current.dispatchEvent(contextMenuEvent)
+        console.log('contextMenuEvent dispatched')
       }
-    }, 2000);
+    }, 2000)
 
-    return () => clearTimeout(timeout);
-  }, []);
+    return () => clearTimeout(timeout)
+  }, [])
 
   return (
     <div className="mx-auto flex max-w-2xl flex-col items-center justify-center gap-4 self-center py-8 text-center">
@@ -53,5 +53,5 @@ export const App = () => {
       </div>
       <ScrambleDemo />
     </div>
-  );
+  )
 }

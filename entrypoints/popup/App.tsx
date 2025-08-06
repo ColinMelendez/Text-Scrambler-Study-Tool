@@ -1,6 +1,6 @@
-import { ModeToggle } from '@/components/popup/dark-mode-toggle';
-import { PermissionsToggle } from '@/components/popup/permissions-toggle';
-import { ScrambleSetting } from '@/components/popup/scramble-setting';
+import { ModeToggle } from '@/components/popup/dark-mode-toggle'
+import { PermissionsToggle } from '@/components/popup/permissions-toggle'
+import { ScrambleSetting } from '@/components/popup/scramble-setting'
 
 export const App = () => {
   return (
@@ -14,5 +14,5 @@ export const App = () => {
         <PermissionsToggle />
       </div>
     </div>
-  );
+  )
 }

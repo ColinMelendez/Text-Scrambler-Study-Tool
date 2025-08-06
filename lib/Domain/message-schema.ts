@@ -3,7 +3,7 @@
  * various extension contexts.
  */
 
-import * as Schema from 'effect/Schema';
+import * as Schema from 'effect/Schema'
 
 /**
  * Schema for the categories of messages that can be sent between the extension and the content script.
@@ -11,9 +11,9 @@ import * as Schema from 'effect/Schema';
  */
 export const MessageCategory = Schema.Literal(
   'disable-scramble',
-);
+)
 
-export type MessageCategory = typeof MessageCategory.Type;
+export type MessageCategory = typeof MessageCategory.Type
 
 /**
  * Schema for the structure of messages can be sent between the various extension contexts.
@@ -21,6 +21,6 @@ export type MessageCategory = typeof MessageCategory.Type;
 export const Message = Schema.Struct({
   messageCategory: MessageCategory,
   payload: Schema.optional(Schema.Unknown),
-});
+})
 
-export type Message = typeof Message.Type;
+export type Message = typeof Message.Type

@@ -1,8 +1,8 @@
-'use client';
+'use client'
 
-import * as React from 'react';
-import { cn } from '@/lib/utils/cn';
-import { SlidingNumber, type SlidingNumberProps } from './sliding-number';
+import * as React from 'react'
+import { cn } from '@/lib/utils/cn'
+import { SlidingNumber, type SlidingNumberProps } from './sliding-number'
 
 interface SlidingNumberInputProps extends Omit<SlidingNumberProps, 'number' | 'onChange'> {
   value?: number
@@ -32,68 +32,68 @@ const SlidingNumberInput = ({
   className,
   ...slidingNumberProps
 }: SlidingNumberInputProps & { ref?: React.RefObject<HTMLInputElement | null> }) => {
-  const [internallyControlledValue, setInternallyControlledValue] = React.useState(defaultValue);
-  const [isFocused, setIsFocused] = React.useState(false);
-  const [inputValue, setInputValue] = React.useState('');
+  const [internallyControlledValue, setInternallyControlledValue] = React.useState(defaultValue)
+  const [isFocused, setIsFocused] = React.useState(false)
+  const [inputValue, setInputValue] = React.useState('')
 
-  const inputRef = React.useRef<HTMLInputElement>(null);
-  React.useImperativeHandle(ref, () => inputRef.current!);
+  const inputRef = React.useRef<HTMLInputElement>(null)
+  React.useImperativeHandle(ref, () => inputRef.current!)
 
-  const externallyControlled = value !== undefined;
-  const currentValue = externallyControlled ? value : internallyControlledValue;
+  const externallyControlled = value !== undefined
+  const currentValue = externallyControlled ? value : internallyControlledValue
 
   const handleFocus = React.useCallback((event: React.FocusEvent<HTMLInputElement>) => {
-    setIsFocused(true);
-    setInputValue(String(currentValue));
+    setIsFocused(true)
+    setInputValue(String(currentValue))
     // Select all text when focused
     setTimeout(() => {
-      inputRef.current?.select();
-    }, 0);
-    onFocus?.(event);
-  }, [currentValue, onFocus]);
+      inputRef.current?.select()
+    }, 0)
+    onFocus?.(event)
+  }, [currentValue, onFocus])
 
   const handleBlur = React.useCallback((event: React.FocusEvent<HTMLInputElement>) => {
-    setIsFocused(false);
-    const numericValue = Number(inputValue);
+    setIsFocused(false)
+    const numericValue = Number(inputValue)
     if (!Number.isNaN(numericValue)) {
-      let clampedValue = numericValue;
+      let clampedValue = numericValue
       if (min !== undefined)
-        clampedValue = Math.max(min, clampedValue);
+        clampedValue = Math.max(min, clampedValue)
       if (max !== undefined)
-        clampedValue = Math.min(max, clampedValue);
+        clampedValue = Math.min(max, clampedValue)
 
       if (!externallyControlled) {
-        setInternallyControlledValue(clampedValue);
+        setInternallyControlledValue(clampedValue)
       }
-      setInputValue(String(clampedValue));
-      onChange?.(clampedValue);
+      setInputValue(String(clampedValue))
+      onChange?.(clampedValue)
     }
     else {
       // Reset to previous valid value if input is invalid
-      setInputValue(String(currentValue));
+      setInputValue(String(currentValue))
     }
-    onBlur?.(event);
-  }, [inputValue, currentValue, onChange, onBlur, min, max, externallyControlled]);
+    onBlur?.(event)
+  }, [inputValue, currentValue, onChange, onBlur, min, max, externallyControlled])
 
   const handleChange = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
-  }, []);
+    setInputValue(event.target.value)
+  }, [])
 
   const handleKeyDown = React.useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      inputRef.current?.blur();
+      inputRef.current?.blur()
     }
     if (event.key === 'Escape') {
-      setInputValue(String(currentValue));
-      inputRef.current?.blur();
+      setInputValue(String(currentValue))
+      inputRef.current?.blur()
     }
-  }, [currentValue]);
+  }, [currentValue])
 
   const handleWrapperClick = React.useCallback(() => {
     if (!disabled && !isFocused) {
-      inputRef.current?.focus();
+      inputRef.current?.focus()
     }
-  }, [disabled, isFocused]);
+  }, [disabled, isFocused])
 
   return (
     <div
@@ -139,9 +139,9 @@ const SlidingNumberInput = ({
         )}
       />
     </div>
-  );
-};
+  )
+}
 
-SlidingNumberInput.displayName = 'SlidingNumberInput';
+SlidingNumberInput.displayName = 'SlidingNumberInput'
 
-export { SlidingNumberInput, type SlidingNumberInputProps };
+export { SlidingNumberInput, type SlidingNumberInputProps }
